@@ -1,34 +1,54 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./App.css";
 import useChatMessage from "./hooks/useChatMessage";
+import { fetchStrings } from "./store/actions/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { clearStrings } from "./store/actions/actions";
 
 function App() {
   const [chatMessage, setChatMessage] = useState("");
-  const [messageArr, setMessageArr] = useState([]);
+  const dispatch = useDispatch();
+  const { message, date } = useChatMessage(chatMessage);
+  const messages = useSelector((state) => state.strings);
 
-  const formatedMessage = useChatMessage(chatMessage);
+  const inputRef = useRef();
 
-  function addMessage(message) {
-    setMessageArr((prevMessage) => [...prevMessage, message]);
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (chatMessage) {
+      dispatch(fetchStrings([...messages, { date: date, message: message }]));
+      setChatMessage("");
+      inputRef.current.value = "";
+    }
   }
+  const handleClearItems = () => {
+    dispatch(clearStrings()); 
+    console.log('1')
+  }
+
   return (
     <div className="App">
       <div className="chat-container">
-        <div>
-          {messageArr.map((el) => (
-            <span>{el}</span>
-          ))}
+        <div className="messages-container">
+          {messages.map((el, index) => {
+            return (
+              <div key={index} className="message">
+                <span>{el.date}</span>
+                <p>{el.message}</p>
+              </div>
+            );
+          })}
         </div>
-        <form>
+        <form onSubmit={handleSubmit} className="input-container">
           <input
             type="text"
+            ref={inputRef}
             onChange={(e) => {
               setChatMessage(e.target.value);
             }}
           />
-          <button type="submit" onClick={() => addMessage(formatedMessage)}>
-            Send
-          </button>
+          <button type="submit" className="send-btn">Send</button>
+          <button type="button" className="clear-btn" onClick={handleClearItems}>Send</button>
         </form>
       </div>
     </div>

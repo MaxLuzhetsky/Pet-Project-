@@ -27,6 +27,39 @@
 .App-link {
   color: #61dafb;
 }
+.send-btn{
+  border: none;
+  padding: 15px;
+  border-radius: 15px;
+  font-family: 'Courier New', Courier, monospace;
+  color: #282c34;
+  background-color: #bff75971;
+  cursor: pointer;
+}
+.send-btn:hover{
+  background-color: #dafa9f71;
+}
+.clear-btn{
+  border: none;
+  padding: 15px;
+  border-radius: 15px;
+  font-family: 'Courier New', Courier, monospace;
+  color: #282c34;
+  background-color: #fa2f2f71;
+  cursor: pointer;
+}
+.clear-btn:hover{
+  background-color: #be161671;
+}
+.input-container{
+  padding: 15px;
+  gap:25px;
+  display: flex;
+  justify-content: space-between;
+}
+.input-container input {
+  border-radius:15px;
+}
 
 @keyframes App-logo-spin {
   from {

@@ -11,3 +11,41 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(63, 162, 248);
+  padding: 10px;
+  width: 700px;
+  height: 600px;
+}
+
+.messages-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 5px;
+  width: 350px;
+  height: 550px;
+  background-color: rgb(223, 201, 201);
+
+}
+
+.message {
+  display: flex;
+  flex-direction: row;
+}
+
+.message p {
+  margin: 0;
+  margin-left: 10px;
+  padding: 0;
+  color: blue
+}
+
+.message span {
+  color: black
+}

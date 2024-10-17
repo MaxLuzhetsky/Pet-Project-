@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
+import { Filter } from "bad-words";
 
 export default function useChatMessage(value) {
   const [message, setMessage] = useState("");
   const [formatedDate, setFormatedDate] = useState("");
+
+  const filter = new Filter();
 
   function formatDate(date) {
     const options = {
@@ -22,9 +25,8 @@ export default function useChatMessage(value) {
     setFormatedDate(messageDate);
   }, [value]);
 
-  if (formatedDate && message) {
-    return formatedDate + "-" + message;
-  } else {
-    return;
-  }
+  return {
+    date: formatDate(),
+    message: filter.clean(message),
+  };
 }
