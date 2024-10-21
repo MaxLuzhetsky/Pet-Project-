@@ -4,14 +4,18 @@ import useChatMessage from "./hooks/useChatMessage";
 import { fetchStrings } from "./store/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { clearStrings } from "./store/actions/actions";
+import useSignUp from "./hooks/useSignUp";
 
 function App() {
   const [chatMessage, setChatMessage] = useState("");
+  const [login , setLogin]= useState('')
+  const [password , setPassword ] = useState('')
   const dispatch = useDispatch();
   const { message, date } = useChatMessage(chatMessage);
-  const messages = useSelector((state) => state.strings);
-
+  const messages = useSelector((state) => state.rootReducer.strings);
+  console.log(messages)
   const inputRef = useRef();
+  const {dispName, signUp} = useSignUp(login,password)
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -26,8 +30,26 @@ function App() {
     console.log('1')
   }
 
+  const handleSignUp = () => {
+    if(login && password){
+      signUp(login,password)
+      console.log({dispName})
+    }
+    
+  }
+  
+
   return (
     <div className="App">
+      <label>
+        <span>login</span>
+        <input type='text' onChange={(e) => setLogin(e.target.value)}/>
+      </label>
+      <label>
+        <span>password</span>
+        <input type='text' onChange={(e) => setPassword(e.target.value)}/>
+      </label>
+      <button type="submit" onClick={handleSignUp}>ok</button>
       <div className="chat-container">
         <div className="messages-container">
           {messages.map((el, index) => {
