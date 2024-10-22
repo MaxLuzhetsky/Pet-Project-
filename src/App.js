@@ -8,54 +8,57 @@ import useSignUp from "./hooks/useSignUp";
 
 function App() {
   const [chatMessage, setChatMessage] = useState("");
-  const [login , setLogin]= useState('')
-  const [password , setPassword ] = useState('')
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const { message, date } = useChatMessage(chatMessage);
+  const { dispName, signUp } = useSignUp(login, password);
+  const { message, date } = useChatMessage(chatMessage, dispName);
   const messages = useSelector((state) => state.rootReducer.strings);
-  console.log(messages)
   const inputRef = useRef();
-  const {dispName, signUp} = useSignUp(login,password)
 
   function handleSubmit(e) {
     e.preventDefault();
     if (chatMessage) {
-      dispatch(fetchStrings([...messages, { date: date, message: message }]));
+      dispatch(
+        fetchStrings([
+          ...messages,
+          { date: date, message: message, nickName: dispName },
+        ])
+      );
       setChatMessage("");
       inputRef.current.value = "";
     }
   }
   const handleClearItems = () => {
-    dispatch(clearStrings()); 
-    console.log('1')
-  }
+    dispatch(clearStrings());
+  };
 
   const handleSignUp = () => {
-    if(login && password){
-      signUp(login,password)
-      console.log({dispName})
+    if (login && password) {
+      signUp(login, password);
     }
-    
-  }
-  
+  };
 
   return (
     <div className="App">
       <label>
         <span>login</span>
-        <input type='text' onChange={(e) => setLogin(e.target.value)}/>
+        <input type="text" onChange={(e) => setLogin(e.target.value)} />
       </label>
       <label>
         <span>password</span>
-        <input type='text' onChange={(e) => setPassword(e.target.value)}/>
+        <input type="text" onChange={(e) => setPassword(e.target.value)} />
       </label>
-      <button type="submit" onClick={handleSignUp}>ok</button>
+      <button type="submit" onClick={handleSignUp}>
+        ok
+      </button>
       <div className="chat-container">
         <div className="messages-container">
           {messages.map((el, index) => {
             return (
               <div key={index} className="message">
-                <span>{el.date}</span>
+                <span>{el.date}|</span>
+                <span>{el.nickName}:</span>
                 <p>{el.message}</p>
               </div>
             );
@@ -69,8 +72,16 @@ function App() {
               setChatMessage(e.target.value);
             }}
           />
-          <button type="submit" className="send-btn">Send</button>
-          <button type="button" className="clear-btn" onClick={handleClearItems}>Send</button>
+          <button type="submit" className="send-btn">
+            Send
+          </button>
+          <button
+            type="button"
+            className="clear-btn"
+            onClick={handleClearItems}
+          >
+            Send
+          </button>
         </form>
       </div>
     </div>

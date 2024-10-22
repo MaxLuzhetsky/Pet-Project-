@@ -27,7 +27,8 @@
 .App-link {
   color: #61dafb;
 }
-.send-btn{
+
+.send-btn {
   border: none;
   padding: 15px;
   border-radius: 15px;
@@ -36,10 +37,12 @@
   background-color: #bff75971;
   cursor: pointer;
 }
-.send-btn:hover{
+
+.send-btn:hover {
   background-color: #dafa9f71;
 }
-.clear-btn{
+
+.clear-btn {
   border: none;
   padding: 15px;
   border-radius: 15px;
@@ -48,23 +51,31 @@
   background-color: #fa2f2f71;
   cursor: pointer;
 }
-.clear-btn:hover{
+
+.clear-btn:hover {
   background-color: #be161671;
 }
-.input-container{
+
+.nickname {
+  padding: 0 5px;
+}
+
+.input-container {
   padding: 15px;
-  gap:25px;
+  gap: 25px;
   display: flex;
   justify-content: space-between;
 }
+
 .input-container input {
-  border-radius:15px;
+  border-radius: 15px;
 }
 
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
