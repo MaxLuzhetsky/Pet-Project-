@@ -1,20 +1,20 @@
 import { useState, useEffect } from "react";
 import { Filter } from "bad-words";
 
-export default function useChatMessage(value, name) {
-  const [message, setMessage] = useState("");
+export default function useChatMessage(value: string, name: string) {
+  const [message, setMessage] = useState<string>("");
 
   const filter = new Filter();
 
-  function formatDate(date) {
-    const options = {
+  function formatDate(): string {
+    const options: Intl.DateTimeFormatOptions = {
       day: "2-digit",
       month: "2-digit",
       hour: "2-digit",
       minute: "2-digit",
       hour12: false,
     };
-    return new Intl.DateTimeFormat("en-GB", options).format(date);
+    return new Intl.DateTimeFormat("en-GB", options).format(new Date());
   }
 
   useEffect(() => {
@@ -24,6 +24,6 @@ export default function useChatMessage(value, name) {
   return {
     date: formatDate(),
     message: filter.clean(message),
-    name: name ? name : "Anonim",
+    name: name ? name : "Anonymous",
   };
 }

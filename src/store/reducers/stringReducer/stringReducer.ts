@@ -2,14 +2,20 @@ import {
     SET_STRINGS,
     CLEAR_STRINGS,
     CLEAR_STRINGS_REQUEST,
-  } from "../../actions/actions";
+  } from "../../actions/actions.ts";
   
+  export interface Message {
+    date: string;
+    message: string;
+    nickName: string;
+  }
+
   const loadStringsFromLocalStorage = () => {
     const storedStrings = localStorage.getItem("strings");
     return storedStrings ? JSON.parse(storedStrings) : [];
   };
   
-  const initialState = {
+  const initialState: { strings: Message[] } = {
     strings: loadStringsFromLocalStorage(),
   };
   
