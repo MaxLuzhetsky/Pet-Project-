@@ -1,7 +1,7 @@
 import React, { useRef, useState, FormEvent, ChangeEvent } from "react";
 import "./App.css";
 import useChatMessage from "./hooks/useChatMessage.ts";
-import { fetchStrings, clearStrings, stringType } from "./store/actions/actions.ts";
+import { clearStrings, setStrings } from "./store/actions/actions.ts";
 import { useDispatch, useSelector } from "react-redux";
 import useSignUp from "./hooks/useSignUp.ts";
 import { AppDispatch } from "./store/store.ts";
@@ -15,16 +15,15 @@ function App() {
 
   const { dispName, signUp } = useSignUp(login, password);
   const { message, date } = useChatMessage(chatMessage, dispName);
-  
-  const messages = useSelector((state: { rootReducer: { strings:Message[]  }}) => state.rootReducer.strings);
+
+  const messages = useSelector((state: { rootReducer: { strings: Message[] } }) => state.rootReducer.strings);
   const inputRef = useRef<HTMLInputElement>(null);
-  console.log(messages);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (chatMessage) {
       dispatch(
-        fetchStrings([
+        setStrings([
           ...messages,
           { date: date, message: message, nickName: dispName },
         ])
