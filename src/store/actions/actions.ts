@@ -37,3 +37,9 @@ export const fetchClearStrings = () => {
     dispatch(clearStrings());
   };
 };
+
+export const fetchUser = (login:string, password:string ) => {
+  return (dispatch) => {
+    dispatch(setUser(login,password));
+  };
+};
