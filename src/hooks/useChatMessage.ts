@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
 import { Filter } from "bad-words";
 
-export default function useChatMessage(value: string, name: string) {
+export enum MessageType {
+  USER = "USER",
+  ANONIM = "ANONIM",
+  ADMIN = "ADMIN",
+}
+
+export default function useChatMessage(value: string, name: string, role: MessageType ) {
   const [message, setMessage] = useState<string>("");
 
   const filter = new Filter();
-
   function formatDate(): string {
     const options: Intl.DateTimeFormatOptions = {
       day: "2-digit",
@@ -25,5 +30,6 @@ export default function useChatMessage(value: string, name: string) {
     date: formatDate(),
     message: filter.clean(message),
     name: name ? name : "Anonymous",
+    role: role,
   };
 }
