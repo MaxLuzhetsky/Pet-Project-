@@ -7,6 +7,11 @@ import useSignUp from "./hooks/useSignUp.ts";
 import { AppDispatch } from "./store/store.ts";
 import { Message } from "./store/reducers/stringReducer/stringReducer.ts";
 
+
+//@comment this component is doing too much. It handles form state, chat messaging, sign-up, and interaction with Redux.
+//separate the logic into smaller components.
+//also u can divide logic and template. Create hook usePageLogic and put all logic inside that hook and export object with all values u need 
+
 function App() {
   const [chatMessage, setChatMessage] = useState<string>("");
   const [inputValues, setInputValues] = useState<{ login: string; password: string }>({
@@ -15,10 +20,14 @@ function App() {
   });
   const dispatch = useDispatch<AppDispatch>();
 
-  const { dispName, signUp , role } = useSignUp(inputValues.login, inputValues.password);
-  const { message, date } = useChatMessage(chatMessage, dispName , role);
+  const { dispName, signUp, role } = useSignUp(inputValues.login, inputValues.password);
+  const { message, date } = useChatMessage(chatMessage, dispName, role);
 
   const messages = useSelector((state: { rootReducer: { strings: Message[] } }) => state.rootReducer.strings);
+
+  //@comment you are using ref only to clear the chat input. This makes the input field "uncontrolled."
+  //You can use some react-form library or make it input as controlled
+
   const inputRef = useRef<HTMLInputElement>(null);
 
 
@@ -36,6 +45,8 @@ function App() {
     }
   });
 
+  //@comment handleLoginChange and handlePasswordChange doing the same. Create one and use it
+
   const handleLoginChange = (e: ChangeEvent<HTMLInputElement>) => {
     inputProxy.login = e.target.value;
   };
@@ -50,6 +61,7 @@ function App() {
       dispatch(
         fetchStrings([
           ...messages,
+          //@comment you can do it shorter { date, message, nickName: dispName },
           { date: date, message: message, nickName: dispName },
         ])
       );
@@ -64,15 +76,15 @@ function App() {
     dispatch(clearStrings());
   };
 
-  const colorFunc = (role:MessageType) => {
-    if(role === MessageType.ADMIN){
+  const colorFunc = (role: MessageType) => {
+    if (role === MessageType.ADMIN) {
       return "red"
-    }else if( role === MessageType.USER){
+    } else if (role === MessageType.USER) {
       return 'black'
-    }else{
+    } else {
       return 'grey'
     }
-    
+
   }
 
   const handleSignUp = () => {
@@ -100,7 +112,7 @@ function App() {
             <div key={index} className="message">
               <span>{el.date} | </span>
               <span>{el.nickName}:</span>
-              <p style={{color:colorFunc(role)}}>{el.message}</p>
+              <p style={{ color: colorFunc(role) }}>{el.message}</p>
             </div>
           ))}
         </div>

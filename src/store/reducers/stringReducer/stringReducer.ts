@@ -1,51 +1,52 @@
 import {
-    SET_STRINGS,
-    CLEAR_STRINGS,
-    CLEAR_STRINGS_REQUEST,
-  } from "../../actions/actions.ts";
-  
-  export interface Message {
-    date: string;
-    message: string;
-    nickName: string;
-  }
+  SET_STRINGS,
+  CLEAR_STRINGS,
+  CLEAR_STRINGS_REQUEST,
+} from "../../actions/actions.ts";
 
-  const loadStringsFromLocalStorage = () => {
-    const storedStrings = localStorage.getItem("strings");
-    return storedStrings ? JSON.parse(storedStrings) : [];
-  };
-  
-  const initialState: { strings: Message[] } = {
-    strings: loadStringsFromLocalStorage(),
-  };
-  
-  const rootReducer = (state = initialState, action) => {
-    switch (action.type) {
-      case SET_STRINGS:
-        const newState = {
-          ...state,
-          strings: action.payload,
-        };
-        localStorage.setItem("strings", JSON.stringify(newState.strings));
-        return newState;
-      case CLEAR_STRINGS_REQUEST:
-        const clearState = {
-          ...state,
-          strings: [],
-        };
-        localStorage.removeItem("strings")
-        return clearState;
-      case CLEAR_STRINGS:
-        const clearedState = {
-          ...state,
-          strings: [],
-        };
-        localStorage.removeItem("strings")
-        return clearedState;
-      default:
-        return state;
-    }
-  };
-  
-  export default rootReducer;
-  
+//@comment for types or interface you can create separate folder and reuse them(src/types or srt/interfaces)
+export interface Message {
+  date: string;
+  message: string;
+  nickName: string;
+}
+
+const loadStringsFromLocalStorage = () => {
+  const storedStrings = localStorage.getItem("strings");
+  return storedStrings ? JSON.parse(storedStrings) : [];
+};
+
+const initialState: { strings: Message[] } = {
+  strings: loadStringsFromLocalStorage(),
+};
+
+const rootReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case SET_STRINGS:
+      const newState = {
+        ...state,
+        strings: action.payload,
+      };
+      localStorage.setItem("strings", JSON.stringify(newState.strings));
+      return newState;
+    case CLEAR_STRINGS_REQUEST:
+      const clearState = {
+        ...state,
+        strings: [],
+      };
+      localStorage.removeItem("strings")
+      return clearState;
+    case CLEAR_STRINGS:
+      const clearedState = {
+        ...state,
+        strings: [],
+      };
+      //@comment: duplicate for remove item. Create separate function for it and reuse
+      localStorage.removeItem("strings")
+      return clearedState;
+    default:
+      return state;
+  }
+};
+
+export default rootReducer;
