@@ -34,6 +34,11 @@ function* setStringsSaga(action) {
   }
 }
 
+
+//@comment u don't need rootSaga and root. U can do all in one of then
+// in bigger project u will have a lot of files with saga. 
+// Every saga  has watcher and worker. U can add that prefix to naming. F.e. setUserSaga => userSagaWorker
+// and try to divide logic for saga. Because now u have all sagas in one file.
 function* rootSaga() {
   yield takeEvery(SET_USER, setUserSaga);
   yield takeEvery(CLEAR_STRINGS_REQUEST, clearStringsSaga);
@@ -41,6 +46,10 @@ function* rootSaga() {
 }
 
 function* root() {
+  //@comment:  yield all([
+  // takeEvery(SET_USER, setUserSaga),
+  // ....
+  // ])
   yield all([rootSaga]);
 }
 
