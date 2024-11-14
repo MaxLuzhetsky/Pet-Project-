@@ -1,11 +1,11 @@
 import React, { useRef, useState, FormEvent, ChangeEvent } from "react";
 import "./App.css";
-import useChatMessage, { MessageType } from "./hooks/useChatMessage.ts";
+import useChatMessage from "./hooks/useChatMessage.ts";
 import { fetchStrings, clearStrings } from "./store/actions/actions.ts";
 import { useDispatch, useSelector } from "react-redux";
 import useSignUp from "./hooks/useSignUp.ts";
 import { AppDispatch } from "./store/store.ts";
-import { Message } from "./store/reducers/stringReducer/stringReducer.ts";
+import { Message, MessageType } from "./@types/types.ts";
 
 function App() {
   const [chatMessage, setChatMessage] = useState<string>("");
@@ -15,7 +15,7 @@ function App() {
   });
   const dispatch = useDispatch<AppDispatch>();
 
-  const { dispName, signUp , role } = useSignUp(inputValues.login, inputValues.password);
+  const { dispName, signUp , role } = useSignUp();
   const { message, date } = useChatMessage(chatMessage, dispName , role);
 
   const messages = useSelector((state: { rootReducer: { strings: Message[] } }) => state.rootReducer.strings);

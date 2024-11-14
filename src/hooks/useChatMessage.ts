@@ -1,35 +1,28 @@
-import { useState, useEffect } from "react";
 import { Filter } from "bad-words";
+import { MessageType } from "../@types";
 
-export enum MessageType {
-  USER = "USER",
-  ANONIM = "ANONIM",
-  ADMIN = "ADMIN",
+function formatDate(): string {
+  const options: Intl.DateTimeFormatOptions = {
+    day: "2-digit",
+    month: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  };
+  return new Intl.DateTimeFormat("en-GB", options).format(new Date());
 }
 
-export default function useChatMessage(value: string, name: string, role: MessageType ) {
-  const [message, setMessage] = useState<string>("");
-
+export default function useChatMessage(
+  value: string,
+  name: string,
+  role: MessageType
+) {
   const filter = new Filter();
-  function formatDate(): string {
-    const options: Intl.DateTimeFormatOptions = {
-      day: "2-digit",
-      month: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-    };
-    return new Intl.DateTimeFormat("en-GB", options).format(new Date());
-  }
-
-  useEffect(() => {
-    setMessage(value);
-  }, [value]);
 
   return {
     date: formatDate(),
-    message: filter.clean(message),
-    name: name ? name : "Anonymous",
+    message: filter.clean(value),
+    name: name ?? "Anonymous",
     role: role,
   };
 }
