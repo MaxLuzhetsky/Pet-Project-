@@ -1,4 +1,4 @@
-import { stringType } from "../../@types";
+import { stringType } from "../../types";
 
 export const SET_STRINGS = "SET_STRINGS";
 export const CLEAR_STRINGS = "CLEAR_STRINGS";

@@ -1,4 +1,4 @@
-import { User } from "../../../@types/types.ts";
+import { User } from "../../../types/types.ts";
 import { SET_USER } from "../../actions/actions.ts";
 
 const initialState: { user: User } = {

@@ -1,5 +1,5 @@
 import { Filter } from "bad-words";
-import { MessageType } from "../@types";
+import { MessageType } from "../types/types";
 
 function formatDate(): string {
   const options: Intl.DateTimeFormatOptions = {

@@ -2,15 +2,13 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store/store";
 import { setUser } from "../store/actions/actions.ts";
-import { MessageType } from "../@types/types.ts";
+import { MessageType } from "../types/types.ts";
 
 
 export default function useSignUp() {
-  const [name, setName] = useState("");
+  const [name, setName] = useState("Anonim");
   const [role, setRole] = useState<MessageType>(MessageType.ANONYM);
   const dispatch = useDispatch<AppDispatch>();
-
-  const dispName = name || "Anonim";
 
   const signUp = (login: string, password: string) => {
     setName(login);
@@ -25,7 +23,7 @@ export default function useSignUp() {
   };
 
   return {
-    dispName,
+    name,
     signUp,
     role,
   };

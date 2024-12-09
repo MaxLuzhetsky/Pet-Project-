@@ -1,4 +1,4 @@
-import { Message } from "../../../@types/types.ts";
+import { Message } from "../../../types/types.ts";
 import {
   SET_STRINGS,
   CLEAR_STRINGS,

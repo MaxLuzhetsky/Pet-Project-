@@ -1,5 +1,7 @@
-export type stringType = {
-  nickName: string;
+import { ReactNode } from "react";
+
+export  type stringType = {
+  name: string;
   date: string;
   message: string;
 };
@@ -8,10 +10,14 @@ export type User = {
   password: string;
 };
 
+export type Children = {
+  children: ReactNode;
+}
+
 export interface Message {
   date: string;
   message: string;
-  nickName: string;
+  name: string;
 }
 
 export enum MessageType {
